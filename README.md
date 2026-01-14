@@ -12,7 +12,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [x] Proper use of Markdown
 - [x] A concise and compelling elevator pitch
-- [ ] Description of key features
+- [x] Description of key features
 - [x] Description of how you will use each technology
 - [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
@@ -29,9 +29,11 @@ Will have a minimalistic style with a tab for playing the game and a tab to look
 
 ### Key features
 
-- Describe your key feature
-- Describe your key feature
-- Describe your key feature
+- input words and check to make sure they follow the rules of the game.
+- checks if you made it to the final word and updates the leaderboard appropriatly.
+- Live updates of other completing games.
+- login screen that allows users to show up on the leaderboard.
+- A difficulty selctor to choose the difficulty of the game
 
 ### Technologies
 
