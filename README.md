@@ -13,7 +13,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] Proper use of Markdown
 - [x] A concise and compelling elevator pitch
 - [ ] Description of key features
-- [ ] Description of how you will use each technology
+- [x] Description of how you will use each technology
 - [x] One or more rough sketches of your application. Images must be embedded in this file using Markdown image references.
 
 ### Elevator pitch
@@ -37,12 +37,12 @@ Will have a minimalistic style with a tab for playing the game and a tab to look
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Description here
-- **CSS** - Description here
-- **React** - Description here
-- **Service** - Description here
-- **DB/Login** - Description here
-- **WebSocket** - Description here
+- **HTML** - Adds the framework for all of the content that needs to be displayed.
+- **CSS** - Formats the HTML so that the site will look good.
+- **React** - Used to add the game logic to the site.
+- **Service** - get words to use from a dictionary
+- **DB/Login** - store log in information
+- **WebSocket** - have a live updated leaderboard that notifies other users when it is updated
 
 ## 🚀 AWS deliverable
 
