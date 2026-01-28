@@ -59,9 +59,9 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **HTML pages** - I added 3 pages for each section of the website
 - [x] **Proper HTML element usage** - I used multiple different types of html elements throughout the project
 - [x] **Links** - There are links to get to every page of the project
-- [ ] **Text** - I did not complete this part of the deliverable.
+- [x] **Text** - I added a guide section to the project to explain the game for users.
 - [x] **3rd party API placeholder** - I put a place to display a random word
-- [ ] **Images** - I did not complete this part of the deliverable.
+- [x] **Images** - I put a picture in the guide section so its not a wall of text.
 - [x] **Login placeholder** - added a login screen with input tags for users to enter there information
 - [x] **DB data placeholder** - added a table that shows users completions of games and fastest time
 - [x] **WebSocket placeholder** - added a notification bar that will display when a user finishes a game in real time
