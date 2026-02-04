@@ -28,28 +28,3 @@ footer{
     height: 30px;
 }
 
-
-
-@keyframes rainbow{
-    from {
-        color: red;
-    }
-    16% {
-        color: orange;
-    }
-    33%{
-        color: yellow;
-    }
-    50%{
-        color: green;
-    }
-    67%{
-        color: blue;
-    }
-    83%{
-        color: purple;
-    }
-    to {
-        color: red;
-    }
-}

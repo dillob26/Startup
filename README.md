@@ -70,11 +70,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Visually appealing colors and layout. No overflowing elements.** - I did not complete this part of the deliverable.
-- [ ] **Use of a CSS framework** - I did not complete this part of the deliverable.
-- [ ] **All visual elements styled using CSS** - I did not complete this part of the deliverable.
-- [ ] **Responsive to window resizing using flexbox and/or grid display** - I did not complete this part of the deliverable.
-- [ ] **Use of a imported font** - I did not complete this part of the deliverable.
+- [x] **Visually appealing colors and layout. No overflowing elements.** - I added styling to all the elements.
+- [x] **Use of a CSS framework** - I used bootstrap mainly for the buttons and the navbar
+- [x] **All visual elements styled using CSS** - I used css to make the grid in the play page.
+- [x] **Responsive to window resizing using flexbox and/or grid display** - I used flexbox throughout the app for centering and responsive design
+- [x] **Use of a imported font** - imported the lexend font from google
 - [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable.
 
 ## 🚀 React part 1: Routing deliverable
