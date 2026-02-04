@@ -75,7 +75,7 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 - [x] **All visual elements styled using CSS** - I used css to make the grid in the play page.
 - [x] **Responsive to window resizing using flexbox and/or grid display** - I used flexbox throughout the app for centering and responsive design
 - [x] **Use of a imported font** - imported the lexend font from google
-- [ ] **Use of different types of selectors including element, class, ID, and pseudo selectors** - I did not complete this part of the deliverable.
+- [x] **Use of different types of selectors including element, class, ID, and pseudo selectors** - i used all forms of selectors to be able to change the style of the program
 
 ## 🚀 React part 1: Routing deliverable
 
