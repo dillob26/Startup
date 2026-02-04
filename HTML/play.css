@@ -30,7 +30,7 @@ main {
     flex-direction: column;
     align-items: center;
     overflow: auto;
-    margin-bottom: 30px;
+    padding: 30px;
 }
 
 .game::-webkit-scrollbar {
@@ -43,6 +43,18 @@ main {
 
 .notifications {
     flex: 1;
+}
+
+.notifications ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0;
+}
+
+.notifications ul li .Name {
+    color: white;
 }
 
 
