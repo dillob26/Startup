@@ -3,10 +3,25 @@ main {
     display: flex;
     flex-direction: row;
     margin-top: 10px;
+    overflow: hidden;
 }
 
 .options {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.options ul {
+    list-style: none;
+    padding: 0;
+
+}
+
+.options ul li {
+    padding: 10px;
 }
 
 .game {
@@ -14,6 +29,12 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: auto;
+    margin-bottom: 30px;
+}
+
+.game::-webkit-scrollbar {
+  display: none;
 }
 
 .title {
@@ -32,6 +53,7 @@ main {
     grid-template-columns: repeat(3, 80px);
     grid-gap: 10px;
     justify-content: center;
+    margin-bottom: 20px;
 }
 
 .letter-cell {
