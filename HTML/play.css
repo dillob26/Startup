@@ -2,7 +2,6 @@
 main {
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
     overflow: hidden;
 }
 
@@ -30,7 +29,6 @@ main {
     flex-direction: column;
     align-items: center;
     overflow: auto;
-    padding: 30px;
 }
 
 .game::-webkit-scrollbar {
