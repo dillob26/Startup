@@ -12,10 +12,6 @@ body {
     flex-direction: column;
     min-width: 375px;
 
-    animation-name: rainbow;
-    animation-duration: 10s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
 }
 
 header{
