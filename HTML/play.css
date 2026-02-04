@@ -1,3 +1,32 @@
+/* main layout */
+main {
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+
+.options {
+    flex: 1;
+}
+
+.game {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    text-align: center;
+}
+
+.notifications {
+    flex: 1;
+}
+
+
+
+/* Grid layout */
 .letter-grid {
     display: grid;
     grid-template-columns: repeat(3, 80px);
@@ -16,4 +45,6 @@
     font-size: 2rem;
     font-weight: bold;
     border-radius: 5px;
+    border-style: solid;
+    border-color: #000000;
 }
