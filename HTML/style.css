@@ -20,8 +20,6 @@ body {
 
 header{
     height: 80px;
-    display: flex;
-    flex-direction: row;
 }
 
 main{
@@ -32,6 +30,8 @@ main{
 footer{
     height: 30px;
 }
+
+
 
 @keyframes rainbow{
     from {
