@@ -55,7 +55,13 @@ main {
     color: white;
 }
 
+#end_word {
+    font-weight: bold;
+}
 
+#start_word {
+    font-weight: bold;
+}
 
 /* Grid layout */
 .letter-grid {
@@ -79,4 +85,9 @@ main {
     border-radius: 5px;
     border-style: solid;
     border-color: #000000;
+    cursor: pointer;
+}
+
+div.letter-cell:hover  {
+    color: #81bfbf;
 }
