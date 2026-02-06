@@ -2,41 +2,59 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
+import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+import { Login } from './login/login';
+import { Play } from './play/play';
+import { Leaderboard } from './leaderboard/leaderboard';
+import { Guide } from './guide/guide';
+
+
+function NotFound() {
+  return <main className="container-fluid bg-secondary text-center">404: Return to sender. Address unknown.</main>;
+}
+
+
 export default function App() {
   return (
-  <div className="body bg-dark text-light">
-    <header class="container-fluid">
-        <nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
-            <a class="navbar-brand" href="#">Word Chain</a>
-            <menu class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="index.html">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="play.html">Play</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="leaderboard.html">Leaderboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="guide.html">guide</a>
-                </li>
-            </menu>
-        </nav>
-    </header>
+    <BrowserRouter>
+        <div className="body bg-dark text-light">
+            <header className="container-fluid">
+                <nav className="navbar navbar-expand navbar-dark bg-dark fixed-top">
+                    <a className="navbar-brand" href="#">Word Chain</a>
+                    <menu className="navbar-nav">
+                        <li className="nav-item">
+                            <NavLink className="nav-link active" to="">Login</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="play">Play</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="leaderboard">Leaderboard</NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="guide">guide</NavLink>
+                        </li>
+                    </menu>
+                </nav>
+            </header>
 
 
-    <main>
-        main content here
-    </main>
+            <Routes>
+                <Route path='/' element={<Login />} exact />
+                <Route path='/play' element={<Play />} />
+                <Route path='/leaderboard' element={<Leaderboard />} />
+                <Route path='/guide' element={<Guide />} />
+                <Route path='*' element={<NotFound />} />
+            </Routes>
 
-    <footer class="bg-dark text-light">
-        <div class="container-fluid">
-            <p>
-                Dillon Birch - <a href="https://github.com/dillob26/Startup">GitHub</a>
-            </p>
-        </div>    
-    </footer>
-  </div>
+            <footer className="bg-dark text-light">
+                <div className="container-fluid">
+                    <p>
+                        Dillon Birch - <a href="https://github.com/dillob26/Startup">GitHub</a>
+                    </p>
+                </div>    
+            </footer>
+        </div>
+    </BrowserRouter> 
   );
 }
