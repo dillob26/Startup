@@ -3,7 +3,7 @@ input.form-control {
   width: 30ch !important;
 }
 
-main {
+.main-login {
     display: flex;
     flex-direction: column;
     align-items: center;

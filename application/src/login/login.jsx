@@ -3,7 +3,7 @@ import './login.css';
 
 export function Login() {
   return (
-    <main className="container-fluid bg-secondary text-center">
+    <main className="main-login container-fluid bg-secondary text-center">
       <h1>Welcome to Word Chain</h1>
         <p>Please login to play</p>
         <form method="get" action="play.html">

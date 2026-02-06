@@ -3,7 +3,7 @@ import './guide.css';
 
 export function Guide() {
   return (
-    <main className="container-fluid bg-secondary text-center">
+    <main className="main-guide container-fluid bg-secondary text-center">
       <h3>guide</h3>
         <p>
             In Word Chain your goal in this game is to go from one word to another word.

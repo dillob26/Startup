@@ -1,5 +1,5 @@
 /* main layout */
-main {
+.main-play {
     display: flex;
     flex-direction: row;
     overflow: hidden;
