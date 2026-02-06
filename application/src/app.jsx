@@ -17,7 +17,7 @@ function NotFound() {
 export default function App() {
   return (
     <BrowserRouter>
-        <div className="body bg-dark text-light">
+        <div className="body bg-dark text-dark">
             <header className="container-fluid">
                 <nav className="navbar navbar-expand navbar-dark bg-dark fixed-top">
                     <a className="navbar-brand" href="#">Word Chain</a>
