@@ -3,7 +3,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './app.css';
 
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
+
 import { Login } from './login/login';
+import { AuthState } from './login/authState';
+
 import { Play } from './play/play';
 import { Leaderboard } from './leaderboard/leaderboard';
 import { Guide } from './guide/guide';
@@ -15,6 +18,11 @@ function NotFound() {
 
 
 export default function App() {
+    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
+    const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
+    const [authState, setAuthState] = React.useState(currentAuthState);
+
+
   return (
     <BrowserRouter>
         <div className="body bg-dark text-dark">
