@@ -5,7 +5,7 @@ import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 
 import { Login } from './login/login';
-import { auth_state } from './login/auth_state';
+import { Auth_State } from './login/auth_state';
 
 import { Play } from './play/play';
 import { Leaderboard } from './leaderboard/leaderboard';
@@ -19,7 +19,7 @@ function NotFound() {
 
 export default function App() {
     const [user_name, set_user_name] = React.useState(localStorage.getItem('user_name') || '');
-    const current_auth_state = user_name ? auth_state.Authenticated : auth_state.Unauthenticated;
+    const current_auth_state = user_name ? Auth_State.Authenticated : Auth_State.Unauthenticated;
     const [auth_state, set_auth_state] = React.useState(current_auth_state);
 
 
