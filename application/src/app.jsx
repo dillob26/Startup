@@ -5,7 +5,7 @@ import './app.css';
 import { BrowserRouter, NavLink, Route, Routes } from 'react-router-dom';
 
 import { Login } from './login/login';
-import { AuthState } from './login/authState';
+import { auth_state } from './login/auth_state';
 
 import { Play } from './play/play';
 import { Leaderboard } from './leaderboard/leaderboard';
@@ -18,9 +18,9 @@ function NotFound() {
 
 
 export default function App() {
-    const [userName, setUserName] = React.useState(localStorage.getItem('userName') || '');
-    const currentAuthState = userName ? AuthState.Authenticated : AuthState.Unauthenticated;
-    const [authState, setAuthState] = React.useState(currentAuthState);
+    const [user_name, set_user_name] = React.useState(localStorage.getItem('user_name') || '');
+    const current_auth_state = user_name ? auth_state.Authenticated : auth_state.Unauthenticated;
+    const [auth_state, set_auth_state] = React.useState(current_auth_state);
 
 
   return (
@@ -48,7 +48,16 @@ export default function App() {
 
 
             <Routes>
-                <Route path='/' element={<Login />} exact />
+                <Route path='/' element={
+                    <Login 
+                        user_name={user_name}
+                        auth_state={auth_state}
+                        on_auth_change={(user_name, auth_state) => {
+                            set_user_name(user_name);
+                            set_auth_state(auth_state);
+                        }}
+                    />} exact 
+                />
                 <Route path='/play' element={<Play />} />
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/guide' element={<Guide />} />
