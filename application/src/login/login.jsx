@@ -2,6 +2,7 @@ import React from 'react';
 import './login.css';
 
 import { Auth_state } from './authState';
+import { Unauthenticated } from './unauthenticated';
 
 export function Login({user_name, auth_state, on_auth_change}) {
   return (
@@ -10,8 +11,14 @@ export function Login({user_name, auth_state, on_auth_change}) {
         {auth_state !== Auth_state.Unknown && <h1>Welcome to Word Chain</h1>}
         {auth_state === Auth_state.Authenticated && (
           <p>authenticated as {user_name}</p>)}
+        
         {auth_state === Auth_state.Unauthenticated && (
-          <p>unauthenticated</p>)}
+          <Unauthenticated 
+          user_name={user_name} 
+          onLogin={(login_user_name) => 
+            on_auth_change(login_user_name, Auth_state.Authenticated)} 
+        />)}
+      
       </div>
     </main>
   );
