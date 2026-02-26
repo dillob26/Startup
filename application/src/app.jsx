@@ -33,12 +33,15 @@ export default function App() {
                         <li className="nav-item">
                             <NavLink className="nav-link active" to="">Login</NavLink>
                         </li>
-                        <li className="nav-item">
+                        
+                        {auth_state === Auth_State.Authenticated && <li className="nav-item">
                             <NavLink className="nav-link" to="play">Play</NavLink>
-                        </li>
-                        <li className="nav-item">
+                        </li>}
+                        
+                        {auth_state === Auth_State.Authenticated && <li className="nav-item">
                             <NavLink className="nav-link" to="leaderboard">Leaderboard</NavLink>
-                        </li>
+                        </li>}
+                        
                         <li className="nav-item">
                             <NavLink className="nav-link" to="guide">guide</NavLink>
                         </li>
