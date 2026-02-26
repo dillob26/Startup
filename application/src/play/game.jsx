@@ -7,10 +7,36 @@ export function Game() {
     const [start_word, set_start_word] = React.useState(get_random_word());
     const [end_word, set_end_word] = React.useState(get_random_word());
 
+    const [current_word, set_current_word] = React.useState("");
+
    function restart_game() {
         set_start_word(get_random_word());
         set_end_word(get_random_word());
     }
+
+    React.useEffect(() => {
+    const handleKeyDown = (event) => {
+      const key = event.key.toUpperCase();
+
+      // Only letters A-Z
+      if (/^[A-Z]$/.test(key)) {
+        if (current_word.length < 3) { // max word length
+          set_current_word((prev) => prev + key);
+        }
+      } else if (key === "BACKSPACE") {
+        set_current_word((prev) => prev.slice(0, -1));
+      } else if (key === "ENTER") {
+        if (current_word.length === 3) {
+          set_current_word(""); // reset input
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [current_word]);
+
 
     return (
         <div className="game">
@@ -20,15 +46,12 @@ export function Game() {
             </div>
 
             <div className="letter-grid">
-                <div className="letter-cell">A</div>
-                <div className="letter-cell">C</div>
-                <div className="letter-cell">T</div>
-                <div className="letter-cell">A</div>
-                <div className="letter-cell">C</div>
-                <div className="letter-cell">E</div>
-                <div className="letter-cell"></div>
-                <div className="letter-cell"></div>
-                <div className="letter-cell"></div>
+                <div className="letter-cell">{start_word[0]}</div>
+                <div className="letter-cell">{start_word[1]}</div>
+                <div className="letter-cell">{start_word[2]}</div>
+                <div className="letter-cell">{current_word[0] || ""}</div>
+                <div className="letter-cell">{current_word[1] || ""}</div>
+                <div className="letter-cell">{current_word[2] || ""}</div>
             </div>
 
             <div>

@@ -1,7 +1,4 @@
-
-
-export function get_random_word() {
-    const three_letter_words = [
+export const three_letter_words = [
   "AAH",
   "ABS",
   "ACE",
@@ -643,5 +640,8 @@ export function get_random_word() {
   "ZIT",
   "ZOO",
 ]
+
+export function get_random_word() {
+    
     return three_letter_words[Math.floor(Math.random() * three_letter_words.length)];
 }
