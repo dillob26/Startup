@@ -3,6 +3,7 @@ import './login.css';
 
 import { Auth_State } from './auth_state';
 import { Unauthenticated } from './unauthenticated';
+import { Authenticated } from './authenticated';
 
 export function Login({user_name, auth_state, on_auth_change}) {
   return (
@@ -10,7 +11,10 @@ export function Login({user_name, auth_state, on_auth_change}) {
       <div>
         {auth_state !== Auth_State.Unknown && <h1>Welcome to Word Chain</h1>}
         {auth_state === Auth_State.Authenticated && (
-          <p>authenticated as {user_name}</p>)}
+          <Authenticated 
+            user_name={user_name} 
+            onLogout={() => on_auth_change(null, Auth_State.Unauthenticated)} 
+          />)}
         
         {auth_state === Auth_State.Unauthenticated && (
           <Unauthenticated 
