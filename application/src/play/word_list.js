@@ -642,6 +642,9 @@ export const three_letter_words = [
 ]
 
 export function get_random_word() {
-    
     return three_letter_words[Math.floor(Math.random() * three_letter_words.length)];
+}
+
+export function is_valid_word(word) {
+    return three_letter_words.includes(word);
 }

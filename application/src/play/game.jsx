@@ -1,19 +1,25 @@
 import React from "react";
 import Button from 'react-bootstrap/Button';
 
-import { get_random_word } from './word_list';
+import { get_random_word, is_valid_word } from './word_list';
 
 export function Game() {
     const [start_word, set_start_word] = React.useState(get_random_word());
     const [end_word, set_end_word] = React.useState(get_random_word());
 
     const [current_word, set_current_word] = React.useState("");
+    const [past_words, set_past_words] = React.useState([]);
 
+
+    // Restart the game with new random start and end words
    function restart_game() {
         set_start_word(get_random_word());
         set_end_word(get_random_word());
     }
 
+
+
+    // Handle keyboard input for the current word
     React.useEffect(() => {
     const handleKeyDown = (event) => {
       const key = event.key.toUpperCase();
@@ -27,7 +33,10 @@ export function Game() {
         set_current_word((prev) => prev.slice(0, -1));
       } else if (key === "ENTER") {
         if (current_word.length === 3) {
-          set_current_word(""); // reset input
+            if (is_valid_word(current_word)) {
+                set_past_words((prev) => [...prev, current_word]);
+                set_current_word(""); // reset input
+            }
         }
       }
     };
