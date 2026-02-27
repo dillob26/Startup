@@ -6,6 +6,12 @@ import { get_random_word, is_valid_word } from './word_list';
 export function Game({ word_length }) {
     const [start_word, set_start_word] = React.useState(get_random_word(word_length));
     const [end_word, set_end_word] = React.useState(get_random_word(word_length));
+    
+    const end_word_ref = React.useRef(end_word);
+
+    React.useEffect(() => {
+      end_word_ref.current = end_word;
+    }, [end_word]);
 
     const [current_word, set_current_word] = React.useState("");
     const [past_words, set_past_words] = React.useState([start_word]);
@@ -25,6 +31,7 @@ export function Game({ word_length }) {
         set_past_words([new_start_word]);
     }
 
+    // reset the current game back to the original start word and clear the past words
     function restart_game() {
         set_current_word("");
         set_past_words([start_word]);
@@ -57,6 +64,11 @@ export function Game({ word_length }) {
             set_past_words((old_past_words) => {
               const last_word = old_past_words[old_past_words.length - 1];
               if (prev.length === word_length && is_one_letter_diff(prev, last_word) && is_valid_word(prev, word_length)) {
+                console.log("submitted word:", prev, "last word:", end_word_ref.current);
+                if (prev === end_word_ref.current) {
+                  set_game_running(false);
+                }
+
                 return [...old_past_words, prev];
               }
 
