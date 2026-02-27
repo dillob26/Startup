@@ -81,7 +81,7 @@ export function Game({ word_length }) {
             {/* the title and target chain */}
             <div className="title">
                 <h3>Target Chain</h3>
-                <p><span id="start_word">{start_word}</span> -- <span id="end_word">{end_word}</span></p>
+                <p><span id="start_word">{game_running ? start_word : "###"}</span> -- <span id="end_word">{game_running ? end_word : "###"}</span></p>
             </div>
 
 
@@ -105,14 +105,16 @@ export function Game({ word_length }) {
                 </div>
               ))}
               </div>
-            </div>}
-
-            {!game_running && <Button variant="dark" onClick={() => set_game_running(true)}>Start Game</Button>}
+            </div>}           
 
             {/* the control buttons */}
+            {game_running &&
             <div className="control-buttons">
                 <button className="btn btn-dark">give up</button>
                 <button className="btn btn-dark" onClick={restart_game}>restart</button>
-            </div>
+            </div>}
+
+
+            {!game_running && <Button variant="dark" onClick={() => set_game_running(true)}>Start Game</Button>}
         </div>);
 }
