@@ -23,23 +23,42 @@ export function Game({ word_length }) {
         set_past_words([new_start_word]);
     }
 
+    // Check if two words differ by exactly one letter
+    function is_one_letter_diff(word1, word2) {
+        let dif_count = 0;
+        for (let i = 0; i < word1.length; i++) {
+            if (word1[i] !== word2[i]) {
+                dif_count += 1;
+                if (dif_count > 1) return false;
+            }
+        }
+        return dif_count === 1;
+    }
+
     // Handle keyboard input for the current word
     React.useEffect(() => {
       const handleKeyDown = (event) => {
         const key = event.key.toUpperCase();
 
         if (/^[A-Z]$/.test(key)) {
-          setCurrentWord((prev) => (prev.length < word_length ? prev + key : prev));
+          set_current_word((prev) => (prev.length < word_length ? prev + key : prev));
         } else if (key === "BACKSPACE") {
-          setCurrentWord((prev) => prev.slice(0, -1));
+          set_current_word((prev) => prev.slice(0, -1));
         } else if (key === "ENTER") {
-          setCurrentWord((prev) => {
-            if (prev.length === word_length && is_valid_word(prev, word_length)) {
-              setPastWords((old) => [...old, prev]);
-              return ""; // reset input
-            }
-            return prev; // keep it if not valid
-          });
+          set_current_word((prev) => {
+            set_past_words((old_past_words) => {
+              const last_word = old_past_words[old_past_words.length - 1];
+              if (prev.length === word_length && is_one_letter_diff(prev, last_word) && is_valid_word(prev, word_length)) {
+                return [...old_past_words, prev];
+              }
+              return old_past_words; // keep it if not valid
+            });
+
+            return prev.length === word_length && 
+              is_one_letter_diff(prev, past_words[past_words.length - 1]) && 
+              is_valid_word(prev, word_length) ? "" : prev; // clear input if it was a valid submission
+          })
+          
         }
       };
 
