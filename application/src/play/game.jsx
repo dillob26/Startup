@@ -14,39 +14,43 @@ export function Game({ word_length }) {
 
     // Restart the game with new random start and end words
    function restart_game() {
-        set_start_word(get_random_word(word_length));
-        set_end_word(get_random_word(word_length));
+        const new_start_word = get_random_word(word_length);
+        const new_end_word = get_random_word(word_length);
+
+        set_start_word(new_start_word);
+        set_end_word(new_end_word);
         set_current_word("");
-        set_past_words([start_word]);
+        set_past_words([new_start_word]);
     }
 
     // Handle keyboard input for the current word
     React.useEffect(() => {
-    const handleKeyDown = (event) => {
-      const key = event.key.toUpperCase();
+      const handleKeyDown = (event) => {
+        const key = event.key.toUpperCase();
 
-      // Only letters A-Z
-      if (/^[A-Z]$/.test(key)) {
-        if (current_word.length < word_length) { // max word length
-          set_current_word((prev) => prev + key);
-        }
-      } else if (key === "BACKSPACE") {
-        set_current_word((prev) => prev.slice(0, -1));
-      } else if (key === "ENTER") {
-        if (current_word.length === word_length) {
-            if (is_valid_word(current_word, word_length)) {
-                set_past_words((prev) => [...prev, current_word]);
-                set_current_word(""); // reset input
+        if (/^[A-Z]$/.test(key)) {
+          setCurrentWord((prev) => (prev.length < word_length ? prev + key : prev));
+        } else if (key === "BACKSPACE") {
+          setCurrentWord((prev) => prev.slice(0, -1));
+        } else if (key === "ENTER") {
+          setCurrentWord((prev) => {
+            if (prev.length === word_length && is_valid_word(prev, word_length)) {
+              setPastWords((old) => [...old, prev]);
+              return ""; // reset input
             }
+            return prev; // keep it if not valid
+          });
         }
-      }
-    };
+      };
 
-    window.addEventListener("keydown", handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [word_length]);
 
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [current_word]);
-
+    // Restart the game whenever the word length changes
+    React.useEffect(() => {
+      restart_game();
+    }, [word_length]);
 
 
     return (
