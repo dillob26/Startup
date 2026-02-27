@@ -61,7 +61,7 @@ export default function App() {
                         }}
                     />} exact 
                 />
-                <Route path='/play' element={<Play />} />
+                <Route path='/play' element={<Play user_name={user_name} />} />
                 <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/guide' element={<Guide />} />
                 <Route path='*' element={<NotFound />} />

@@ -3,7 +3,7 @@ import './play.css';
 
 import { Game } from './game';
 
-export function Play() {
+export function Play({ user_name }) {
     const [word_length, set_word_length] = React.useState(3);
 
   return (
@@ -18,7 +18,7 @@ export function Play() {
             
         </div>
 
-        <Game word_length={word_length} />
+        <Game word_length={word_length} user_name={user_name} />
 
         <div className="notifications">    
             <ul>

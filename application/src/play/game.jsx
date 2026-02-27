@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import { get_random_word, is_valid_word } from './word_list';
 import { Game_State } from './game_state';
 
-export function Game({ word_length }) {
+export function Game({ word_length, user_name }) {
     const [start_word, set_start_word] = React.useState(get_random_word(word_length));
     const [end_word, set_end_word] = React.useState(get_random_word(word_length));
     
