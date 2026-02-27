@@ -92,7 +92,7 @@ export function Game({ word_length, user_name }) {
                 console.log("submitted word:", prev, "last word:", end_word_ref.current);
                 if (prev === end_word_ref.current) {
                   set_game_state(Game_State.Game_Over);
-                  update_leaderboard(user_name, time);
+                  update_leaderboard(user_name, time, word_length);
                 }
 
                 return [...old_past_words, prev];
@@ -168,8 +168,10 @@ export function Game({ word_length, user_name }) {
                 <button className="btn btn-dark" onClick={restart_game}>restart</button>
             </div>}
 
+            {/* the start game button */}
             {game_state === Game_State.Not_Started && <Button variant="dark" onClick={start_game}>Start Game</Button>}
 
+            {/* the game over screen with the player's time and a button to start a new game */}
             {game_state === Game_State.Game_Over &&
             <div>
                 <h2>You Win!</h2>

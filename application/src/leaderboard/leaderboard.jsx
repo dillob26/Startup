@@ -1,7 +1,15 @@
 import React from 'react';
 import './leaderboard.css';
 
+import { get_sorted_leaderboard } from './leaderboard';
+
 export function Leaderboard() {
+    const [scores, set_scores] = React.useState([]);
+
+    React.useEffect(() => {
+        set_scores(get_sorted_leaderboard());
+    }, []);
+
   return (
     <main className="main-leaderboard container-fluid bg-secondary">
         <h2>
