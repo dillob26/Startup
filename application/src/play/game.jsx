@@ -2,13 +2,14 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 
 import { get_random_word, is_valid_word } from './word_list';
+import { Game_State } from './game_state';
 
 export function Game({ word_length }) {
     const [start_word, set_start_word] = React.useState(get_random_word(word_length));
     const [end_word, set_end_word] = React.useState(get_random_word(word_length));
     
+    //allows us to access the current end word in our event listener without worrying about stale closures
     const end_word_ref = React.useRef(end_word);
-
     React.useEffect(() => {
       end_word_ref.current = end_word;
     }, [end_word]);
@@ -16,7 +17,7 @@ export function Game({ word_length }) {
     const [current_word, set_current_word] = React.useState("");
     const [past_words, set_past_words] = React.useState([start_word]);
 
-    const [game_running, set_game_running] = React.useState(false);
+    const [game_state, set_game_state] = React.useState(Game_State.Not_Started);
 
     const [shake, set_shake] = React.useState(false);
 
@@ -66,7 +67,7 @@ export function Game({ word_length }) {
               if (prev.length === word_length && is_one_letter_diff(prev, last_word) && is_valid_word(prev, word_length)) {
                 console.log("submitted word:", prev, "last word:", end_word_ref.current);
                 if (prev === end_word_ref.current) {
-                  set_game_running(false);
+                  set_game_(false);
                 }
 
                 return [...old_past_words, prev];
@@ -98,12 +99,13 @@ export function Game({ word_length }) {
             {/* the title and target chain */}
             <div className="title">
                 <h3>Target Chain</h3>
-                <p><span id="start_word">{game_running ? start_word : "###"}</span> -- <span id="end_word">{game_running ? end_word : "###"}</span></p>
+                <p><span id="start_word">{game_state === Game_State.Running ? start_word : "###"}</span> -- 
+                  <span id="end_word">{game_state === Game_State.Running ? end_word : "###"}</span></p>
             </div>
 
 
             {/* the game board */}
-            {game_running &&
+            {game_state === Game_State.Running &&
             <div className={`letter-grid`}>
               {past_words.map((word, rowIndex) => (
                 <div className={`letter-row-${word_length}`} key={rowIndex}>
@@ -125,13 +127,13 @@ export function Game({ word_length }) {
             </div>}           
 
             {/* the control buttons */}
-            {game_running &&
+            {game_state === Game_State.Running &&
             <div className="control-buttons">
-                <button className="btn btn-dark" onClick={() => set_game_running(false)}>give up</button>
+                <button className="btn btn-dark" onClick={() => set_game_state(Game_State.Game_Over)}>give up</button>
                 <button className="btn btn-dark" onClick={restart_game}>restart</button>
             </div>}
 
 
-            {!game_running && <Button variant="dark" onClick={() => set_game_running(true)}>Start Game</Button>}
+            {game_state === Game_State.Not_Started && <Button variant="dark" onClick={() => set_game_state(Game_State.Running)}>Start Game</Button>}
         </div>);
 }
