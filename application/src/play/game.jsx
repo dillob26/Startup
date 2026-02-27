@@ -15,7 +15,7 @@ export function Game({ word_length }) {
     const [shake, set_shake] = React.useState(false);
 
     // Restart the game with new random start and end words
-   function restart_game() {
+   function new_game() {
         const new_start_word = get_random_word(word_length);
         const new_end_word = get_random_word(word_length);
 
@@ -23,6 +23,11 @@ export function Game({ word_length }) {
         set_end_word(new_end_word);
         set_current_word("");
         set_past_words([new_start_word]);
+    }
+
+    function restart_game() {
+        set_current_word("");
+        set_past_words([start_word]);
     }
 
     // Check if two words differ by exactly one letter
@@ -72,7 +77,7 @@ export function Game({ word_length }) {
 
     // Restart the game whenever the word length changes
     React.useEffect(() => {
-      restart_game();
+      new_game();
     }, [word_length]);
 
 
@@ -110,7 +115,7 @@ export function Game({ word_length }) {
             {/* the control buttons */}
             {game_running &&
             <div className="control-buttons">
-                <button className="btn btn-dark">give up</button>
+                <button className="btn btn-dark" onClick={() => set_game_running(false)}>give up</button>
                 <button className="btn btn-dark" onClick={restart_game}>restart</button>
             </div>}
 
