@@ -64,9 +64,17 @@
 }
 
 /* Grid layout */
-.letter-grid {
+.letter-grid-3 {
     display: grid;
     grid-template-columns: repeat(3, 80px);
+    grid-gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.letter-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 80px);
     grid-gap: 10px;
     justify-content: center;
     margin-bottom: 20px;

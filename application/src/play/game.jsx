@@ -3,18 +3,19 @@ import Button from 'react-bootstrap/Button';
 
 import { get_random_word, is_valid_word } from './word_list';
 
-export function Game() {
-    const [start_word, set_start_word] = React.useState(get_random_word());
-    const [end_word, set_end_word] = React.useState(get_random_word());
+export function Game({ word_length }) {
+    const [start_word, set_start_word] = React.useState(get_random_word(word_length));
+    const [end_word, set_end_word] = React.useState(get_random_word(word_length));
 
     const [current_word, set_current_word] = React.useState("");
     const [past_words, set_past_words] = React.useState([]);
 
 
+
     // Restart the game with new random start and end words
    function restart_game() {
-        set_start_word(get_random_word());
-        set_end_word(get_random_word());
+        set_start_word(get_random_word(word_length));
+        set_end_word(get_random_word(word_length));
     }
 
 
@@ -26,14 +27,14 @@ export function Game() {
 
       // Only letters A-Z
       if (/^[A-Z]$/.test(key)) {
-        if (current_word.length < 3) { // max word length
+        if (current_word.length < word_length) { // max word length
           set_current_word((prev) => prev + key);
         }
       } else if (key === "BACKSPACE") {
         set_current_word((prev) => prev.slice(0, -1));
       } else if (key === "ENTER") {
-        if (current_word.length === 3) {
-            if (is_valid_word(current_word)) {
+        if (current_word.length === word_length) {
+            if (is_valid_word(current_word, word_length)) {
                 set_past_words((prev) => [...prev, current_word]);
                 set_current_word(""); // reset input
             }
@@ -54,7 +55,7 @@ export function Game() {
                 <p><span id="start_word">{start_word}</span> -- <span id="end_word">{end_word}</span></p>
             </div>
 
-            <div className="letter-grid">
+            <div className={`letter-grid-${word_length}`}>
                 <div className="letter-cell">{start_word[0]}</div>
                 <div className="letter-cell">{start_word[1]}</div>
                 <div className="letter-cell">{start_word[2]}</div>
