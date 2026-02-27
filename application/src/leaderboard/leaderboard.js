@@ -15,19 +15,19 @@ export function update_leaderboard(user_name, completion_time, word_length) {
    
     if (word_length === 3) {
         if (!leaderboard[user_name]) {
-            leaderboard[user_name] = { completions_3: 1, completions_4: 0, best_time_3: completion_time, best_time_4: Infinity };
+            leaderboard[user_name] = { completions_3: 1, completions_4: 0, best_time_3: completion_time, best_time_4: null };
         } else {
             leaderboard[user_name].completions_3 += 1;
-            if (completion_time < leaderboard[user_name].best_time_3) {
+            if (completion_time < leaderboard[user_name].best_time_3 || leaderboard[user_name].best_time_3 === null) {
                 leaderboard[user_name].best_time_3 = completion_time;
             }
         }
     } else if (word_length === 4) {
         if (!leaderboard[user_name]) {
-            leaderboard[user_name] = { completions_3: 0, completions_4: 1, best_time_3: Infinity, best_time_4: completion_time };
+            leaderboard[user_name] = { completions_3: 0, completions_4: 1, best_time_3: null, best_time_4: completion_time };
         } else {
             leaderboard[user_name].completions_4 += 1;
-            if (completion_time < leaderboard[user_name].best_time_4) {
+            if (completion_time < leaderboard[user_name].best_time_4 || leaderboard[user_name].best_time_4 === null) {
                 leaderboard[user_name].best_time_4 = completion_time;
             }
         }

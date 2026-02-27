@@ -18,7 +18,11 @@ export function Play({ user_name }) {
             
         </div>
 
-        <Game word_length={word_length} user_name={user_name} />
+        {user_name &&
+        <Game word_length={word_length} user_name={user_name} />}
+
+        {!user_name &&
+        <div><p>Please log in to play.</p></div>}
 
         <div className="notifications">    
             <ul>
