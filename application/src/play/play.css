@@ -64,20 +64,27 @@
 }
 
 /* Grid layout */
-.letter-grid-3 {
+.letter-grid {
     display: grid;
-    grid-template-columns: repeat(3, 80px);
+    grid-template-columns: repeat(1, 80px);
     grid-gap: 10px;
     justify-content: center;
     margin-bottom: 20px;
 }
 
-.letter-grid-4 {
+
+.letter-row-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    grid-gap: 10px;
+    justify-content: center;
+}
+
+.letter-row-4 {
     display: grid;
     grid-template-columns: repeat(4, 80px);
     grid-gap: 10px;
     justify-content: center;
-    margin-bottom: 20px;
 }
 
 .letter-cell {

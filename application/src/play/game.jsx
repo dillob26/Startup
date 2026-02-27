@@ -8,7 +8,7 @@ export function Game({ word_length }) {
     const [end_word, set_end_word] = React.useState(get_random_word(word_length));
 
     const [current_word, set_current_word] = React.useState("");
-    const [past_words, set_past_words] = React.useState([]);
+    const [past_words, set_past_words] = React.useState([start_word]);
 
 
 
@@ -16,9 +16,9 @@ export function Game({ word_length }) {
    function restart_game() {
         set_start_word(get_random_word(word_length));
         set_end_word(get_random_word(word_length));
+        set_current_word("");
+        set_past_words([start_word]);
     }
-
-
 
     // Handle keyboard input for the current word
     React.useEffect(() => {
@@ -48,6 +48,7 @@ export function Game({ word_length }) {
   }, [current_word]);
 
 
+
     return (
         <div className="game">
             <div className="title">
@@ -55,13 +56,24 @@ export function Game({ word_length }) {
                 <p><span id="start_word">{start_word}</span> -- <span id="end_word">{end_word}</span></p>
             </div>
 
-            <div className={`letter-grid-${word_length}`}>
-                <div className="letter-cell">{start_word[0]}</div>
-                <div className="letter-cell">{start_word[1]}</div>
-                <div className="letter-cell">{start_word[2]}</div>
-                <div className="letter-cell">{current_word[0] || ""}</div>
-                <div className="letter-cell">{current_word[1] || ""}</div>
-                <div className="letter-cell">{current_word[2] || ""}</div>
+            <div className={`letter-grid`}>
+              {past_words.map((word, rowIndex) => (
+                <div className={`letter-row-${word_length}`} key={rowIndex}>
+                  {word.split("").map((letter, colIndex) => (
+                    <div className="letter-cell" key={colIndex}>
+                      {letter}
+                    </div>
+                  ))}
+                </div>
+              ))}
+
+              <div className={`letter-row-${word_length}`}>
+               {Array.from({ length: word_length }).map((_, i) => (
+                <div className="letter-cell" key={i}>
+                  {current_word[i] || ""}
+                </div>
+              ))}
+              </div>
             </div>
 
             <div>
