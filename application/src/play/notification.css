@@ -1,0 +1,8 @@
+.popup {
+    background-color: #333;
+    color: grey;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 3px;
+    z-index: 1000;
+}
