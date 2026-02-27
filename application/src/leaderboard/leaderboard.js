@@ -39,12 +39,12 @@ export function update_leaderboard(user_name, completion_time, word_length) {
 //returns an array of leaderboard entries sorted by best time, with each entry containing the user name, number of completions, and best time
 export function get_sorted_leaderboard(word_length) {
     const leaderboard = get_leaderboard();
-    const entries = Object.entries(leaderboard);
+    let entries = Object.entries(leaderboard);
 
     const best_key = word_length === 3 ? 'best_time_3' : 'best_time_4';
     const completions_key = word_length === 3 ? 'completions_3' : 'completions_4';
 
-    entries.filter(([, stats]) => stats[completions_key] > 0);
+    entries = entries.filter(([, stats]) => stats[completions_key] > 0);
     entries.sort(([, A_stats], [, B_stats]) => A_stats[best_key] - B_stats[best_key]);
 
     return entries.map(([user_name, stats]) => ({

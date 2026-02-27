@@ -22,6 +22,11 @@ export function Game({ word_length, user_name }) {
     const [time, set_time] = React.useState(0);
     const time_ref = React.useRef(null);
 
+    const actual_time_ref = React.useRef(0);
+    React.useEffect(() => {
+      actual_time_ref.current = time;
+    }, [time]);
+
     const [shake, set_shake] = React.useState(false);
 
     
@@ -91,8 +96,9 @@ export function Game({ word_length, user_name }) {
               if (prev.length === word_length && is_one_letter_diff(prev, last_word) && is_valid_word(prev, word_length)) {
                 console.log("submitted word:", prev, "last word:", end_word_ref.current);
                 if (prev === end_word_ref.current) {
+                  console.log("final time:", actual_time_ref.current); 
+                  update_leaderboard(user_name, actual_time_ref.current, word_length);
                   set_game_state(Game_State.Game_Over);
-                  update_leaderboard(user_name, time, word_length);
                 }
 
                 return [...old_past_words, prev];
@@ -124,6 +130,7 @@ export function Game({ word_length, user_name }) {
         time_ref.current = setInterval(() => {
           set_time(prev => prev + 0.1);
         }, 100);
+        console.log("time:", time);
       } else {
         clearInterval(time_ref.current);
       }
