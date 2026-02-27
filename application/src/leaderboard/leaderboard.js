@@ -1,16 +1,16 @@
 //retrieves the leaderboard from local storage, or initializes it if it doesn't exist
-function get_leaderboard() {
+export function get_leaderboard() {
     const data = localStorage.getItem('leaderboard');
     return data ? JSON.parse(data) : {};
 }
 
 // saves the given leaderboard data to local storage
-function save_leaderboard(data) {
+export function save_leaderboard(data) {
     localStorage.setItem('leaderboard', JSON.stringify(data));
 }
 
 // updates the leaderboard with a new completion time for a user, adding them if they don't exist
-function update_leaderboard(user_name, completion_time) {
+export function update_leaderboard(user_name, completion_time) {
     const leaderboard = get_leaderboard();
     if (!leaderboard[user_name]) {
         leaderboard[user_name] = {
@@ -27,7 +27,7 @@ function update_leaderboard(user_name, completion_time) {
 }
 
 //returns an array of leaderboard entries sorted by best time, with each entry containing the user name, number of completions, and best time
-function get_sorted_leaderboard() {
+export function get_sorted_leaderboard() {
     const leaderboard = get_leaderboard();
     const entries = Object.entries(leaderboard);
 

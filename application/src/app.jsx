@@ -8,7 +8,7 @@ import { Login } from './login/login';
 import { Auth_State } from './login/auth_state';
 
 import { Play } from './play/play';
-import { Leaderboard } from './leaderboard/leaderboard';
+import { Leaderboard } from './leaderboard/leaderboard.jsx';
 import { Guide } from './guide/guide';
 
 
