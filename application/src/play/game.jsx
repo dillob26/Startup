@@ -21,6 +21,7 @@ export function Game({ word_length, user_name }) {
     const [game_state, set_game_state] = React.useState(Game_State.Not_Started);
     const [time, set_time] = React.useState(0);
     const time_ref = React.useRef(null);
+    const start_ref = React.useRef(null);
 
     const actual_time_ref = React.useRef(0);
     React.useEffect(() => {
@@ -94,9 +95,7 @@ export function Game({ word_length, user_name }) {
             set_past_words((old_past_words) => {
               const last_word = old_past_words[old_past_words.length - 1];
               if (prev.length === word_length && is_one_letter_diff(prev, last_word) && is_valid_word(prev, word_length)) {
-                console.log("submitted word:", prev, "last word:", end_word_ref.current);
                 if (prev === end_word_ref.current) {
-                  console.log("final time:", actual_time_ref.current); 
                   update_leaderboard(user_name, actual_time_ref.current, word_length);
                   set_game_state(Game_State.Game_Over);
                 }
@@ -127,10 +126,12 @@ export function Game({ word_length, user_name }) {
     // starts a timer when the game starts, and stops it when the game ends
     React.useEffect(() => {
       if (game_state === Game_State.Running) {
+        start_ref.current = Date.now();
+
         time_ref.current = setInterval(() => {
-          set_time(prev => prev + 0.1);
+          const elapsed = (Date.now() - start_ref.current) / 1000;
+          set_time(elapsed);
         }, 100);
-        console.log("time:", time);
       } else {
         clearInterval(time_ref.current);
       }

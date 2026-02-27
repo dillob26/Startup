@@ -19,7 +19,7 @@ export function Leaderboard() {
             Leaderboard
         </h2>
 
-        <h3>3 Letter Words</h3>
+        <h3 className='leaderboard-title'>3 Letter Words</h3>
         <table className="table table-bordered w-50 table-striped table-dark">
             <thead>
                 <tr>
@@ -47,7 +47,7 @@ export function Leaderboard() {
             </tbody>
         </table>
 
-        <h3>4 Letter Words</h3>
+        <h3 className='leaderboard-title'>4 Letter Words</h3>
         <table className="table table-bordered w-50 table-striped table-dark">
             <thead>
                 <tr>
