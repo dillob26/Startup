@@ -2,6 +2,14 @@ import React from 'react';
 import './guide.css';
 
 export function Guide() {
+    const mountain_image = ["mountain_1.png", "mountain_2.png", "mountain_3.png"];
+
+    function get_random_mountain_image() {
+        const random_index = Math.floor(Math.random() * mountain_image.length);
+        return mountain_image[random_index];
+    }
+
+
   return (
     <main className="main-guide container-fluid bg-secondary text-center">
       <h3>guide</h3>
@@ -22,7 +30,7 @@ export function Guide() {
         </p>
 
 
-        <img src="mountain.jfif"></img>
+        <img src={get_random_mountain_image()} alt='mountain image' className='uniform-image'></img>
     </main>
   );
 }
