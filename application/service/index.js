@@ -53,6 +53,13 @@ api_router.delete('/authenticate/logout', async (req, res) => {
   res.status(204).send({ msg: 'User logged out' });
 });
 
+const verify_authentication = async (req, res, next) => {
+  const user = await findUser('id', req.cookies[auth_cookie_name]);
+  if (!user) {
+    return res.status(401).send({ msg: 'Unauthorized' });
+  }
+  next();
+};
 
 
 
