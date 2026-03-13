@@ -17,10 +17,10 @@ var apiRouter = express.Router();
 app.use(`/api`, apiRouter);
 
 app.post('/authenticate/create', async (req, res) => {
-  if (await findUser('email', req.body.email)) {
+  if (await findUser('email', req.body.user_name)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
-    const user = await createUser(req.body.email, req.body.password);
+    const user = await createUser(req.body.user_name, req.body.password);
     res.status(201).send({ msg: 'User created' });
   }
 });
@@ -32,3 +32,12 @@ async function findUser(key, value) {
 
   return users.find((u) => u[key] === value);
 }
+
+async function createUser(user_name, password) {
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const user = { id: uuid.v4(), email: user_name, password: hashedPassword };
+  users.push(user);
+  return user;
+}
+
+app.listen(port);
