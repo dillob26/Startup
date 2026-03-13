@@ -13,10 +13,14 @@ let scores = [];
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
-var apiRouter = express.Router();
-app.use(`/api`, apiRouter);
+const auth_cookie_name = 'token';
 
-app.post('/authenticate/create', async (req, res) => {
+var api_router = express.Router();
+app.use(`/api`, api_router);
+
+
+//endpoints
+api_router.post('/authenticate/create', async (req, res) => {
   if (await findUser('email', req.body.user_name)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
@@ -25,7 +29,7 @@ app.post('/authenticate/create', async (req, res) => {
   }
 });
 
-app.post('/authenticate/login', async (req, res) => {
+api_router.post('/authenticate/login', async (req, res) => {
   const user = await findUser('email', req.body.user_name);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
@@ -40,6 +44,17 @@ app.post('/authenticate/login', async (req, res) => {
   res.status(401).send({ msg: 'Invalid credentials' });
 });
 
+api_router.delete('/authenticate/logout', async (req, res) => {
+  const user = await findUser('id', req.cookies[auth_cookie_name]);
+  if (user) {
+    delete user.id;
+  }
+  res.clearCookie(auth_cookie_name);
+  res.status(204).send({ msg: 'User logged out' });
+}
+
+
+//helper functions
 async function findUser(key, value) {
     if (!key) return null;
 
@@ -57,7 +72,7 @@ async function createUser(user_name, password) {
 }
 
 function set_auth_cookie(res, token) {
-  res.cookie(authCookieName, token, {
+  res.cookie(auth_cookie_name, token, {
     maxAge: 1000 * 60 * 60 * 24 * 365,
     httpOnly: true,
     secure: true,

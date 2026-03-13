@@ -13,7 +13,7 @@ export function Unauthenticated(props) {
     async function create_user() {
         login_or_create(`/authenticate/create`);
     }
-
+ 
     async function login_or_create(endpoint) {
         const response = await fetch(endpoint, {
             method: 'post',
