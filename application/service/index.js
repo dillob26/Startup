@@ -51,7 +51,9 @@ api_router.delete('/authenticate/logout', async (req, res) => {
   }
   res.clearCookie(auth_cookie_name);
   res.status(204).send({ msg: 'User logged out' });
-}
+});
+
+
 
 
 //helper functions
