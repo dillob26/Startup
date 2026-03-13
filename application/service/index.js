@@ -2,6 +2,7 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
+const { update_leaderboard } = require('../src/leaderboard/leaderboard');
 const app = express();
 
 app.use(express.json());
@@ -9,7 +10,7 @@ app.use(cookieParser());
 app.use(express.static('public'));
 
 let users = [];
-let scores = [];
+let leaderboard = {};
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
@@ -61,6 +62,14 @@ const verify_authentication = async (req, res, next) => {
   next();
 };
 
+// endpoint send the json of the leaderboard, it is unsorted.
+api_router.get('/leaderboard', verify_authentication, async (req, res) => {
+  res.send(leaderboard);
+});
+
+api_router.post('/leaderboard', verify_authentication, async (req, res) => {
+  update_leaderboard(req.body);
+});
 
 
 //helper functions
@@ -88,5 +97,31 @@ function set_auth_cookie(res, token) {
     sameSite: 'strict',
   });
 }
+
+async function update_leaderboard(newScore) {
+  const {  completion_time, word_length } = newScore;
+  const user_name = await findUser('id', req.cookies[auth_cookie_name]).user_name;
+
+  if (word_length === 3) {
+        if (!leaderboard[user_name]) {
+            leaderboard[user_name] = { completions_3: 1, completions_4: 0, best_time_3: completion_time, best_time_4: null };
+        } else {
+            leaderboard[user_name].completions_3 += 1;
+            if (completion_time < leaderboard[user_name].best_time_3 || leaderboard[user_name].best_time_3 === null) {
+                leaderboard[user_name].best_time_3 = completion_time;
+            }
+        }
+    } else if (word_length === 4) {
+        if (!leaderboard[user_name]) {
+            leaderboard[user_name] = { completions_3: 0, completions_4: 1, best_time_3: null, best_time_4: completion_time };
+        } else {
+            leaderboard[user_name].completions_4 += 1;
+            if (completion_time < leaderboard[user_name].best_time_4 || leaderboard[user_name].best_time_4 === null) {
+                leaderboard[user_name].best_time_4 = completion_time;
+            }
+        }
+    }
+  }
+
 
 app.listen(port);
