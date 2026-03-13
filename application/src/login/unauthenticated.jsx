@@ -7,8 +7,7 @@ export function Unauthenticated(props) {
     const [password, set_password] = React.useState('');
 
     async function login_user() {
-        localStorage.setItem('userName', user_name);
-        props.onLogin(user_name);
+        login_or_create(`/authenticate/login`);
     }
 
     async function create_user() {
@@ -21,10 +20,12 @@ export function Unauthenticated(props) {
             body: JSON.stringify({ user_name:user_name, password:password }),
             headers: { 'Content-Type': 'application/json' }
         });
+
         const data = await response.json();
+        
         if (data.msg === 'User created' || data.msg === 'User authenticated') {
             localStorage.setItem('userName', user_name);
-            props.onLogin(user_name);0
+            props.onLogin(user_name);
         }
     }
 
