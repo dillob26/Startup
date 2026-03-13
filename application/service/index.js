@@ -2,7 +2,6 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const uuid = require('uuid');
-const { update_leaderboard } = require('../src/leaderboard/leaderboard');
 const app = express();
 
 app.use(express.json());
@@ -64,11 +63,12 @@ const verify_authentication = async (req, res, next) => {
 
 // endpoint send the json of the leaderboard, it is unsorted.
 api_router.get('/leaderboard', verify_authentication, async (req, res) => {
-  res.send(leaderboard);
+  res.json(leaderboard);
 });
 
 api_router.post('/leaderboard', verify_authentication, async (req, res) => {
-  update_leaderboard(req.body);
+  update_leaderboard(req);
+  res.send({ msg: 'Leaderboard updated' });
 });
 
 
@@ -98,8 +98,8 @@ function set_auth_cookie(res, token) {
   });
 }
 
-async function update_leaderboard(newScore) {
-  const {  completion_time, word_length } = newScore;
+async function update_leaderboard(req) {
+  const {  completion_time, word_length } = req.body;
   const user_name = await findUser('id', req.cookies[auth_cookie_name]).user_name;
 
   if (word_length === 3) {
@@ -124,4 +124,6 @@ async function update_leaderboard(newScore) {
   }
 
 
-app.listen(port);
+app.listen(port , () => {
+  console.log(`Server is running on port ${port}`);
+});

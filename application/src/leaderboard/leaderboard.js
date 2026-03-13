@@ -1,39 +1,22 @@
 //retrieves the leaderboard from local storage, or initializes it if it doesn't exist
-export function get_leaderboard() {
-    const data = localStorage.getItem('leaderboard');
-    return data ? JSON.parse(data) : {};
-}
+export async function get_leaderboard() {
+    const response =  await fetch('/leaderboard', {
+        method: 'get',
+        headers: { 'Content-Type': 'application/json' }
+    });
 
-// saves the given leaderboard data to local storage
-export function save_leaderboard(data) {
-    localStorage.setItem('leaderboard', JSON.stringify(data));
+    const data = await response.json();
+    
+    return data;
 }
 
 // updates the leaderboard with a new completion time for a user, adding them if they don't exist
-export function update_leaderboard(user_name, completion_time, word_length) {
-    const leaderboard = get_leaderboard();
-   
-    if (word_length === 3) {
-        if (!leaderboard[user_name]) {
-            leaderboard[user_name] = { completions_3: 1, completions_4: 0, best_time_3: completion_time, best_time_4: null };
-        } else {
-            leaderboard[user_name].completions_3 += 1;
-            if (completion_time < leaderboard[user_name].best_time_3 || leaderboard[user_name].best_time_3 === null) {
-                leaderboard[user_name].best_time_3 = completion_time;
-            }
-        }
-    } else if (word_length === 4) {
-        if (!leaderboard[user_name]) {
-            leaderboard[user_name] = { completions_3: 0, completions_4: 1, best_time_3: null, best_time_4: completion_time };
-        } else {
-            leaderboard[user_name].completions_4 += 1;
-            if (completion_time < leaderboard[user_name].best_time_4 || leaderboard[user_name].best_time_4 === null) {
-                leaderboard[user_name].best_time_4 = completion_time;
-            }
-        }
-    }
-
-     save_leaderboard(leaderboard);
+export async function update_leaderboard(user_name, completion_time, word_length) {
+    const response =  await fetch('/leaderboard', {
+        method: 'post',
+        body: JSON.stringify({ user_name, completion_time, word_length }),
+        headers: { 'Content-Type': 'application/json' }
+    });
 }
 
 //returns an array of leaderboard entries sorted by best time, with each entry containing the user name, number of completions, and best time
