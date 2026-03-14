@@ -2,9 +2,12 @@ import React from "react";
 
 import Button from 'react-bootstrap/Button';
 
+import { Popup } from "./popup";
+
 export function Unauthenticated(props) {
     const [user_name, set_user_name] = React.useState(props.user_name);
     const [password, set_password] = React.useState('');
+    const [msg, set_msg] = React.useState('');
 
     async function login_user() {
         login_or_create(`/api/authenticate/login`);
@@ -27,9 +30,9 @@ export function Unauthenticated(props) {
             localStorage.setItem('userName', user_name);
             props.onLogin(user_name);
         } else if (data.msg === 'Invalid credentials') {
-            alert('Invalid credentials');
+            set_msg('Wrong username or password');
         } else if (data.msg === 'Existing user') {
-            alert('Existing user');
+            set_msg('User already exists');
         }
     }
 
@@ -43,6 +46,7 @@ export function Unauthenticated(props) {
             </div>
             <Button variant="dark" onClick={login_user} disabled={!user_name || !password}>Login</Button>
             <Button variant="secondary" onClick={create_user} disabled={!user_name || !password}>Create</Button>
+            <Popup msg={msg} onClose={() => set_msg('')} />
         </>
     )
 }
