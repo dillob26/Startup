@@ -25,6 +25,8 @@ api_router.post('/authenticate/create', async (req, res) => {
     res.status(409).send({ msg: 'Existing user' });
   } else {
     const user = await createUser(req.body.user_name, req.body.password);
+
+    set_auth_cookie(res, user.id);
     res.status(201).send({ msg: 'User created' });
   }
 });
