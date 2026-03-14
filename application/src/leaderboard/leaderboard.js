@@ -1,6 +1,6 @@
 //retrieves the leaderboard from local storage, or initializes it if it doesn't exist
 export async function get_leaderboard() {
-    const response =  await fetch('/leaderboard', {
+    const response =  await fetch('/api/leaderboard', {
         method: 'get',
         headers: { 'Content-Type': 'application/json' }
     });
@@ -11,10 +11,10 @@ export async function get_leaderboard() {
 }
 
 // updates the leaderboard with a new completion time for a user, adding them if they don't exist
-export async function update_leaderboard(user_name, completion_time, word_length) {
-    const response =  await fetch('/leaderboard', {
+export async function update_leaderboard(completion_time, word_length) {
+    const response =  await fetch('/api/leaderboard', {
         method: 'post',
-        body: JSON.stringify({ user_name, completion_time, word_length }),
+        body: JSON.stringify({ completion_time, word_length }),
         headers: { 'Content-Type': 'application/json' }
     });
 }

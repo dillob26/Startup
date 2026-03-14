@@ -33,7 +33,7 @@ export function Notification() {
             add_notification(user_name, start_word, end_word);
 
             const random_time = (Math.random() * 10000 + 5000) / 1000; // random time between 5 and 15 seconds
-            update_leaderboard(user_name, random_time, word_length);
+            update_leaderboard(random_time, word_length);
         }, 20000);
 
         return () => clearInterval(add_notification_interval);

@@ -7,11 +7,11 @@ export function Unauthenticated(props) {
     const [password, set_password] = React.useState('');
 
     async function login_user() {
-        login_or_create(`/authenticate/login`);
+        login_or_create(`/api/authenticate/login`);
     }
 
     async function create_user() {
-        login_or_create(`/authenticate/create`);
+        login_or_create(`/api/authenticate/create`);
     }
  
     async function login_or_create(endpoint) {
