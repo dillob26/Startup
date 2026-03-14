@@ -32,7 +32,7 @@ api_router.post('/authenticate/create', async (req, res) => {
 });
 
 api_router.post('/authenticate/login', async (req, res) => {
-  const user = await findUser('email', req.body.user_name);
+  const user = await findUser('user_name', req.body.user_name);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.id = uuid.v4();
