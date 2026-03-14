@@ -67,7 +67,7 @@ api_router.get('/leaderboard', verify_authentication, async (req, res) => {
 });
 
 api_router.post('/leaderboard', verify_authentication, async (req, res) => {
-  update_leaderboard(req);
+  await update_leaderboard(req);
   res.send({ msg: 'Leaderboard updated' });
 });
 
@@ -83,7 +83,7 @@ async function createUser(user_name, password) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = { 
     id: uuid.v4(), 
-    email: user_name, 
+    user_name: user_name, 
     password: hashedPassword };
   users.push(user);
   return user;
@@ -100,7 +100,8 @@ function set_auth_cookie(res, token) {
 
 async function update_leaderboard(req) {
   const {  completion_time, word_length } = req.body;
-  const user_name = await findUser('id', req.cookies[auth_cookie_name]).user_name;
+  const user = await findUser('id', req.cookies[auth_cookie_name]);
+  const user_name = user.user_name;
 
   if (word_length === 3) {
         if (!leaderboard[user_name]) {

@@ -7,9 +7,12 @@ export function Leaderboard() {
     const [scores_3, set_scores_3] = React.useState([]);
     const [scores_4, set_scores_4] = React.useState([]);
 
-    React.useEffect(() => {
-        set_scores_3(get_sorted_leaderboard(3));
-        set_scores_4(get_sorted_leaderboard(4));
+    React.useEffect( () => {
+        async function fetch_leaderboard() {
+            set_scores_3(await get_sorted_leaderboard(3));
+            set_scores_4(await get_sorted_leaderboard(4));
+        }
+        fetch_leaderboard();
     }, []);
 
 

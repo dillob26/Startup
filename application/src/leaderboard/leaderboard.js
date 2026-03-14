@@ -1,4 +1,3 @@
-//retrieves the leaderboard from local storage, or initializes it if it doesn't exist
 export async function get_leaderboard() {
     const response =  await fetch('/api/leaderboard', {
         method: 'get',
@@ -20,9 +19,11 @@ export async function update_leaderboard(completion_time, word_length) {
 }
 
 //returns an array of leaderboard entries sorted by best time, with each entry containing the user name, number of completions, and best time
-export function get_sorted_leaderboard(word_length) {
-    const leaderboard = get_leaderboard();
+export async function get_sorted_leaderboard(word_length) {
+    const leaderboard = await get_leaderboard();
     let entries = Object.entries(leaderboard);
+
+    console.log('Raw leaderboard entries:', entries);
 
     const best_key = word_length === 3 ? 'best_time_3' : 'best_time_4';
     const completions_key = word_length === 3 ? 'completions_3' : 'completions_4';
