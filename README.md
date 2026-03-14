@@ -96,12 +96,12 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Supports registration, login, logout, and restricted endpoint** - I did not complete this part of the deliverable.
+- [X] **Node.js/Express HTTP service** - I made a express HTTP service .
+- [x] **Static middleware for frontend** - I have a static middleware in my index.js.
+- [x] **Calls to third party endpoints** - calls a picture api to get random picture to display in the guide page.
+- [x] **Backend service endpoints** - I have five service endpoints that allow for loging in and updating the leaderboard.
+- [x] **Frontend calls service endpoints** - My frontend uses all of the endpoints to make logging in and the leaderboard work.
+- [x] **Supports registration, login, logout, and restricted endpoint** - My application supports registration with bcrypt to encrypt passwords, allows the user to login and logout using the credentials they created, and the leaderboard endpoints require the user to be logged in by ussing cookies to check for authorization.
 
 ## 🚀 DB deliverable
 

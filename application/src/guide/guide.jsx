@@ -38,7 +38,7 @@ export function Guide() {
         </p>
 
 
-        <img src={image_url} alt='mountain image'></img>
+        <img src={image_url} alt='random image'></img>
     </main>
   );
 }
