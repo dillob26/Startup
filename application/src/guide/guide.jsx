@@ -2,12 +2,20 @@ import React from 'react';
 import './guide.css';
 
 export function Guide() {
-    const mountain_image = ["mountain_1.png", "mountain_2.png", "mountain_3.png"];
+    const [image_url, set_image_url] = React.useState('');
 
-    function get_random_mountain_image() {
-        const random_index = Math.floor(Math.random() * mountain_image.length);
-        return mountain_image[random_index];
-    }
+    React.useEffect(() => {
+        const random = Math.floor(Math.random() * 1000);
+        fetch(`https://picsum.photos/v2/list?page=${random}&limit=1`)
+            .then((response) => response.json())
+            .then((data) => {
+                const width = 300 + Math.floor(Math.random() * 300);
+                const height = 200 + Math.floor(Math.random() * 200);
+                const api_url = `https://picsum.photos/id/${data[0].id}/${width}/${height}`;
+                set_image_url(api_url);
+            })
+            .catch();
+    }, []);
 
 
   return (
@@ -30,7 +38,7 @@ export function Guide() {
         </p>
 
 
-        <img src={get_random_mountain_image()} alt='mountain image' className='uniform-image'></img>
+        <img src={image_url} alt='mountain image'></img>
     </main>
   );
 }
