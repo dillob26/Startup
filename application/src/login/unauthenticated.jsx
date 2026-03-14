@@ -26,6 +26,10 @@ export function Unauthenticated(props) {
         if (data.msg === 'User created' || data.msg === 'User authenticated') {
             localStorage.setItem('userName', user_name);
             props.onLogin(user_name);
+        } else if (data.msg === 'Invalid credentials') {
+            alert('Invalid credentials');
+        } else if (data.msg === 'Existing user') {
+            alert('Existing user');
         }
     }
 

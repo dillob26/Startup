@@ -21,7 +21,7 @@ app.use(`/api`, api_router);
 
 //endpoints
 api_router.post('/authenticate/create', async (req, res) => {
-  if (await findUser('email', req.body.user_name)) {
+  if (await findUser('user_name', req.body.user_name)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
     const user = await createUser(req.body.user_name, req.body.password);
