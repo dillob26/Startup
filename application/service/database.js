@@ -7,6 +7,17 @@ const db = client.db('startup');
 const user_collection = db.collection('user');
 const score_collection = db.collection('score');
 
+(async function testConnection() {
+  try {
+    await db.command({ ping: 1 });
+    console.log(`Connect to database`);
+  } catch (ex) {
+    console.log(`Unable to connect to database with ${url} because ${ex.message}`);
+    process.exit(1);
+  }
+})();
+
+
 function get_user(user_name) {
     return user_collection.findOne({ user_name: user_name });
 }

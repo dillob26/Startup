@@ -116,18 +116,21 @@ async function update_leaderboard(req) {
   const user = await find_user('id', req.cookies[auth_cookie_name]);
   const user_name = user.user_name;
 
-  if (user === null) {
-    score = {
+  const score = await DB.get_scores();
+  const existing_score = score.find(s => s.user_name === user_name);
+
+  if (!existing_score) {
+    const new_score = {
       user_name: user_name,
-      completion_3: word_length === 3 ? 1 : 0,
-      completion_4: word_length === 4 ? 1 : 0,
-      best_time_3: word_length === 3 ? completion_time : null,
-      best_time_4: word_length === 4 ? completion_time : null
+      completions_3: word_length === 3 ? 1 : 0,
+      completions_4: word_length === 4 ? 1 : 0,
+      best_time_3: word_length === 3 ? completion_time : 999999,
+      best_time_4: word_length === 4 ? completion_time : 999999
     }
     
-    DB.add_score(score);
+    await DB.add_score(new_score);
   } else {
-    DB.update_score(user_name, completion_time, word_length);
+    await DB.update_score(user_name, completion_time, word_length);
   }
 }
 
