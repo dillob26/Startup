@@ -10,7 +10,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('public'));
 
-let users = [];
 let leaderboard = {};
 
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -39,6 +38,8 @@ api_router.post('/authenticate/login', async (req, res) => {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.id = uuid.v4();
 
+      await DB.update_user(user);
+
       set_auth_cookie(res, user.id);
 
       res.status(200).send({ msg: 'User authenticated' });
@@ -50,9 +51,11 @@ api_router.post('/authenticate/login', async (req, res) => {
 
 api_router.delete('/authenticate/logout', async (req, res) => {
   const user = await find_user('id', req.cookies[auth_cookie_name]);
+  
   if (user) {
-    delete user.id;
+    await DB.update_user_remove_auth(user);
   }
+  
   res.clearCookie(auth_cookie_name);
   res.status(204).send({ msg: 'User logged out' });
 });

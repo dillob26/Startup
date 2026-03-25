@@ -19,9 +19,19 @@ function add_user(user) {
     return user_collection.insertOne(user);
 }
 
+function update_user(user) {
+    return user_collection.updateOne({ user_name: user.user_name }, { $set: user });
+}
+
+function update_user_remove_auth(user) {
+    return user_collection.updateOne({ user_name: user.user_name }, { $unset: { id: 1 } });
+}
+
 
 module.exports = {
     get_user,
     get_user_by_id,
-    add_user
+    add_user,
+    update_user,
+    update_user_remove_auth
 };
