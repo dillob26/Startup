@@ -29,7 +29,7 @@ export async function get_sorted_leaderboard(word_length) {
         .filter(entry => entry[completions_key] > 0)
         .sort((a, b) => a[best_key] - b[best_key])
         .map(entry => ({
-            user_name: entry.username,
+            user_name: entry.user_name,
             completions: entry[completions_key],
             best_time: entry[best_key]
         }));
