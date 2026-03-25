@@ -117,26 +117,20 @@ async function update_leaderboard(req) {
   const user = await find_user('id', req.cookies[auth_cookie_name]);
   const user_name = user.user_name;
 
-  if (word_length === 3) {
-        if (!leaderboard[user_name]) {
-            leaderboard[user_name] = { completions_3: 1, completions_4: 0, best_time_3: completion_time, best_time_4: null };
-        } else {
-            leaderboard[user_name].completions_3 += 1;
-            if (completion_time < leaderboard[user_name].best_time_3 || leaderboard[user_name].best_time_3 === null) {
-                leaderboard[user_name].best_time_3 = completion_time;
-            }
-        }
-    } else if (word_length === 4) {
-        if (!leaderboard[user_name]) {
-            leaderboard[user_name] = { completions_3: 0, completions_4: 1, best_time_3: null, best_time_4: completion_time };
-        } else {
-            leaderboard[user_name].completions_4 += 1;
-            if (completion_time < leaderboard[user_name].best_time_4 || leaderboard[user_name].best_time_4 === null) {
-                leaderboard[user_name].best_time_4 = completion_time;
-            }
-        }
+  if (user === null) {
+    score = {
+      user_name: user_name,
+      completion_3: word_length === 3 ? 1 : 0,
+      completion_4: word_length === 4 ? 1 : 0,
+      best_time_3: word_length === 3 ? completion_time : null,
+      best_time_4: word_length === 4 ? completion_time : null
     }
+    
+    DB.add_score(score);
+  } else {
+    DB.update_score(user_name, completion_time, word_length);
   }
+}
 
 
 app.listen(port , () => {
