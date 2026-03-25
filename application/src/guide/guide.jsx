@@ -28,13 +28,10 @@ export function Guide() {
             In order to get to the target word you need to make 1 letter changes to the current word in order to make the target word.
         </p>
         <p>
-            One thing to note is that most paths for 3 letter words are possible so do not give up so easily.
-        </p>
-        <p>
-            As the amount of letters increase the higher the chance there is for a chain to not be possible.
-        </p>
-        <p>
             Do not worry about making an ineffecient path as you are ranked based on time not by fewest path.
+        </p>
+        <p>
+            All paths are possible so do not give up.
         </p>
 
 
