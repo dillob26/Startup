@@ -4,6 +4,8 @@ const express = require('express');
 const uuid = require('uuid');
 const app = express();
 
+const DB = require('./database.js');
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('public'));
@@ -21,10 +23,10 @@ app.use(`/api`, api_router);
 
 //endpoints
 api_router.post('/authenticate/create', async (req, res) => {
-  if (await findUser('user_name', req.body.user_name)) {
+  if (await find_user('user_name', req.body.user_name)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
-    const user = await createUser(req.body.user_name, req.body.password);
+    const user = await create_user(req.body.user_name, req.body.password);
 
     set_auth_cookie(res, user.id);
     res.status(201).send({ msg: 'User created' });
@@ -32,7 +34,7 @@ api_router.post('/authenticate/create', async (req, res) => {
 });
 
 api_router.post('/authenticate/login', async (req, res) => {
-  const user = await findUser('user_name', req.body.user_name);
+  const user = await find_user('user_name', req.body.user_name);
   if (user) {
     if (await bcrypt.compare(req.body.password, user.password)) {
       user.id = uuid.v4();
@@ -47,7 +49,7 @@ api_router.post('/authenticate/login', async (req, res) => {
 });
 
 api_router.delete('/authenticate/logout', async (req, res) => {
-  const user = await findUser('id', req.cookies[auth_cookie_name]);
+  const user = await find_user('id', req.cookies[auth_cookie_name]);
   if (user) {
     delete user.id;
   }
@@ -56,7 +58,7 @@ api_router.delete('/authenticate/logout', async (req, res) => {
 });
 
 const verify_authentication = async (req, res, next) => {
-  const user = await findUser('id', req.cookies[auth_cookie_name]);
+  const user = await find_user('id', req.cookies[auth_cookie_name]);
   if (!user) {
     return res.status(401).send({ msg: 'Unauthorized' });
   }
@@ -75,13 +77,17 @@ api_router.post('/leaderboard', verify_authentication, async (req, res) => {
 
 
 //helper functions
-async function findUser(key, value) {
+async function find_user(key, value) {
     if (!key) return null;
 
-  return users.find((u) => u[key] === value);
+    if (key === 'id') {
+        return DB.get_user_by_id(value);
+    }
+
+    return DB.get_user(value);
 }
 
-async function createUser(user_name, password) {
+async function create_user(user_name, password) {
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = { 
     id: uuid.v4(), 
@@ -102,7 +108,7 @@ function set_auth_cookie(res, token) {
 
 async function update_leaderboard(req) {
   const {  completion_time, word_length } = req.body;
-  const user = await findUser('id', req.cookies[auth_cookie_name]);
+  const user = await find_user('id', req.cookies[auth_cookie_name]);
   const user_name = user.user_name;
 
   if (word_length === 3) {
