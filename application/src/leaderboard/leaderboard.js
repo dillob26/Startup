@@ -20,20 +20,17 @@ export async function update_leaderboard(completion_time, word_length) {
 
 //returns an array of leaderboard entries sorted by best time, with each entry containing the user name, number of completions, and best time
 export async function get_sorted_leaderboard(word_length) {
-    const leaderboard = await get_leaderboard();
-    let entries = Object.entries(leaderboard);
-
-    console.log('Raw leaderboard entries:', entries);
+    const entries = await get_leaderboard();
 
     const best_key = word_length === 3 ? 'best_time_3' : 'best_time_4';
     const completions_key = word_length === 3 ? 'completions_3' : 'completions_4';
 
-    entries = entries.filter(([, stats]) => stats[completions_key] > 0);
-    entries.sort(([, A_stats], [, B_stats]) => A_stats[best_key] - B_stats[best_key]);
-
-    return entries.map(([user_name, stats]) => ({
-        user_name,
-        completions: stats[completions_key],
-        best_time: stats[best_key]
-    }));
+    return entries
+        .filter(entry => entry[completions_key] > 0)
+        .sort((a, b) => a[best_key] - b[best_key])
+        .map(entry => ({
+            user_name: entry.username,
+            completions: entry[completions_key],
+            best_time: entry[best_key]
+        }));
 }

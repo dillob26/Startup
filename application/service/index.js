@@ -10,8 +10,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static('public'));
 
-let leaderboard = {};
-
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
 
 const auth_cookie_name = 'token';
@@ -70,6 +68,7 @@ const verify_authentication = async (req, res, next) => {
 
 // endpoint send the json of the leaderboard, it is unsorted.
 api_router.get('/leaderboard', verify_authentication, async (req, res) => {
+  const leaderboard = await DB.get_scores();
   res.json(leaderboard);
 });
 

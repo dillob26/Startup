@@ -44,6 +44,9 @@ async function update_score(user_name, completion_time, word_length) {
     });
 }
 
+function get_scores() {
+    return score_collection.find({}).toArray();
+}
 
 
 module.exports = {
@@ -53,5 +56,6 @@ module.exports = {
     update_user,
     update_user_remove_auth,
     add_score,
-    update_score
+    update_score,
+    get_scores
 };
