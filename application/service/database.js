@@ -15,8 +15,13 @@ function get_user_by_id(id) {
     return user_collection.findOne({ id: id });
 }
 
+function add_user(user) {
+    return user_collection.insertOne(user);
+}
+
 
 module.exports = {
     get_user,
-    get_user_by_id
+    get_user_by_id,
+    add_user
 };

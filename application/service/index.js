@@ -89,11 +89,14 @@ async function find_user(key, value) {
 
 async function create_user(user_name, password) {
   const hashedPassword = await bcrypt.hash(password, 10);
+  
   const user = { 
     id: uuid.v4(), 
     user_name: user_name, 
     password: hashedPassword };
-  users.push(user);
+  
+  await DB.add_user(user);
+  
   return user;
 }
 
