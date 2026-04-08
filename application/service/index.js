@@ -5,7 +5,7 @@ const uuid = require('uuid');
 const app = express();
 
 const DB = require('./database.js');
-const { peer_proxy } = require('./peer_proxy.js');
+const { peer_proxy , broadcast} = require('./peer_proxy.js');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -118,7 +118,7 @@ function set_auth_cookie(res, token) {
 }
 
 async function update_leaderboard(req) {
-  const {  completion_time, word_length } = req.body;
+  const {  completion_time, word_length, start_word, end_word } = req.body;
   const user = await find_user('id', req.cookies[auth_cookie_name]);
   const user_name = user.user_name;
 
@@ -138,6 +138,8 @@ async function update_leaderboard(req) {
   } else {
     await DB.update_score(user_name, completion_time, word_length);
   }
+
+  broadcast({ user_name, start_word, end_word });
 }
 
 

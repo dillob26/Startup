@@ -1,7 +1,9 @@
 const websocket = require('ws');
 
+let socket_server;
+
 function peer_proxy(http_server) {
-  const socket_server = new websocket.WebSocketServer({ server: http_server });
+  socket_server = new websocket.WebSocketServer({ server: http_server });
 
     socket_server.on('connection', (socket) => {
         socket.is_alive = true;
@@ -29,4 +31,15 @@ function peer_proxy(http_server) {
     }, 10000);
 }
 
-module.exports = { peer_proxy };
+function broadcast(data) {
+    if (!socket_server) return;
+
+    socket_server.clients.forEach((client) => {
+        if (client.readyState === websocket.WebSocket.OPEN) {
+            client.send(JSON.stringify(data));
+        }
+    });
+}
+
+
+module.exports = { peer_proxy , broadcast };

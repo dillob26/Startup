@@ -10,10 +10,10 @@ export async function get_leaderboard() {
 }
 
 // updates the leaderboard with a new completion time for a user, adding them if they don't exist
-export async function update_leaderboard(completion_time, word_length) {
+export async function update_leaderboard(completion_time, word_length, start_word, end_word) {
     const response =  await fetch('/api/leaderboard', {
         method: 'post',
-        body: JSON.stringify({ completion_time, word_length }),
+        body: JSON.stringify({ completion_time, word_length, start_word, end_word }),
         headers: { 'Content-Type': 'application/json' }
     });
 }
