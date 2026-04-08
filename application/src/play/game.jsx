@@ -143,7 +143,7 @@ export function Game({ word_length, user_name }) {
             {/* the title and target chain */}
             <div className="title">
                 <h3>Target Chain</h3>
-                <p><span id="start_word">{game_state !== Game_State.Not_Started ? start_word : "###"}</span> -- <span id="end_word">{game_state !== Game_State.Not_Started ? end_word : "###"}</span></p>
+                <p><span id="start_word">{game_state !== Game_State.Not_Started ? start_word : word_length === 3 ? "###" : "####"}</span> -- <span id="end_word">{game_state !== Game_State.Not_Started ? end_word : word_length === 3 ? "###" : "####"}</span></p>
             </div>
 
             {/* the game board */}

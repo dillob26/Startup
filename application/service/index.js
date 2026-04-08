@@ -78,6 +78,11 @@ api_router.post('/leaderboard', verify_authentication, async (req, res) => {
 });
 
 
+app.use((_req, res) => {
+  res.sendFile('index.html', { root: 'public' });
+});
+
+
 //helper functions
 async function find_user(key, value) {
     if (!key) return null;
