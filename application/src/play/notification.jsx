@@ -25,18 +25,27 @@ export function Notification() {
     
     
     React.useEffect(() => {
-        const add_notification_interval = setInterval(() => {
-            const word_length = Math.random() < 0.5 ? 3 : 4;
-            const user_name = "User_" + Math.floor(Math.random() * 100);
-            const start_word = get_random_word(word_length);
-            const end_word = get_random_word(word_length);
-            add_notification(user_name, start_word, end_word);
+        const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const socket = new WebSocket(`${protocol}://${window.location.host}`);
+        socketRef.current = socket;
 
-            //const random_time = (Math.random() * 10000 + 5000) / 1000; // random time between 5 and 15 seconds
-            //update_leaderboard(random_time, word_length);
-        }, 20000);
+        socket.onopen = () => {
+            console.log('WebSocket connected');
+        }, 
 
-        return () => clearInterval(add_notification_interval);
+        socket.onmessage = (event) => {
+            const msg = JSON.parse(event.data);
+
+            if (msg.type === 'notification') {
+                add_notification(msg.user_name, msg.start_word, msg.end_word);
+            }
+        };
+
+        socket.onclose = () => {
+            console.log('WebSocket disconnected');
+        };
+
+        return () => socket.close();
     }, []);
 
     return (
