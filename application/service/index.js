@@ -139,7 +139,7 @@ async function update_leaderboard(req) {
     await DB.update_score(user_name, completion_time, word_length);
   }
 
-  broadcast({ user_name, start_word, end_word });
+  broadcast({ type: 'notification', user_name, start_word, end_word });
 }
 
 
