@@ -15,6 +15,11 @@ export function Game({ word_length, user_name }) {
       end_word_ref.current = end_word;
     }, [end_word]);
 
+    const start_word_ref = React.useRef(start_word);
+    React.useEffect(() => {
+      start_word_ref.current = start_word;
+    }, [start_word]);
+
     const [current_word, set_current_word] = React.useState("");
     const [past_words, set_past_words] = React.useState([start_word]);
 
@@ -96,7 +101,7 @@ export function Game({ word_length, user_name }) {
               const last_word = old_past_words[old_past_words.length - 1];
               if (prev.length === word_length && is_one_letter_diff(prev, last_word) && is_valid_word(prev, word_length)) {
                 if (prev === end_word_ref.current) {
-                  update_leaderboard(actual_time_ref.current, word_length, start_word, end_word_ref.current);
+                  update_leaderboard(actual_time_ref.current, word_length, start_word_ref.current, end_word_ref.current);
                   set_game_state(Game_State.Game_Over);
                 }
 
