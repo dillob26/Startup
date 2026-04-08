@@ -5,6 +5,7 @@ const uuid = require('uuid');
 const app = express();
 
 const DB = require('./database.js');
+const { peer_proxy } = require('./peer_proxy.js');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -140,6 +141,8 @@ async function update_leaderboard(req) {
 }
 
 
-app.listen(port , () => {
+const httpserver = app.listen(port , () => {
   console.log(`Server is running on port ${port}`);
 });
+
+peer_proxy(httpserver);
