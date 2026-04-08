@@ -26,12 +26,11 @@ export function Notification() {
     
     React.useEffect(() => {
         const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-        const socket = new WebSocket(`${protocol}://${window.location.host}`);
-        socketRef.current = socket;
+        const socket = new WebSocket(`${protocol}://${window.location.host}/ws`);
 
         socket.onopen = () => {
             console.log('WebSocket connected');
-        }, 
+        } 
 
         socket.onmessage = (event) => {
             const msg = JSON.parse(event.data);
