@@ -114,8 +114,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Backend listens for WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Frontend makes WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **Data sent over WebSocket connection** - I did not complete this part of the deliverable.
-- [ ] **WebSocket data displayed** - I did not complete this part of the deliverable.
-- [ ] **Application is fully functional** - I did not complete this part of the deliverable.
+- [x] **Backend listens for WebSocket connection** - Listens in peer_proxy.js.
+- [x] **Frontend makes WebSocket connection** - Makes connection in notification.jsx.
+- [x] **Data sent over WebSocket connection** - Data is being sent using the broadcast function found in peer_proxy.js.
+- [x] **WebSocket data displayed** - Notifications are displayed when users complete a chain. Using the add_notification function found in notification.jsx.
+- [x] **Application is fully functional** - Application is fully functional.
